@@ -1,0 +1,158 @@
+{
+  "templates": [
+    {
+      "id": "car-monitoring",
+      "name": "Car Monitoring",
+      "description": "Triggers an alert when a car disappears for 5 consecutive analysed frames, or when a person approaches for 5 consecutive analysed frames.",
+      "version": 1,
+      "camera": {
+        "type": "rtsp",
+        "uri": "",
+        "name": "",
+        "username": "",
+        "password": ""
+      },
+      "modelId": "yolov8n-ncnn",
+      "targetClasses": ["car", "person"],
+      "confidenceThreshold": 0.45,
+      "regions": [],
+      "alertPolicy": {
+        "eventName": "Car Monitoring Alert",
+        "alertType": "critical",
+        "inAppEnabled": 1,
+        "operation": "or",
+        "objectConditions": [
+          {
+            "className": "car",
+            "trigger": "absent",
+            "regionOperation": "or",
+            "regionRules": [
+              { "regionName": "*", "consecutiveFrames": 5 }
+            ]
+          },
+          {
+            "className": "person",
+            "trigger": "present",
+            "regionOperation": "or",
+            "regionRules": [
+              { "regionName": "*", "consecutiveFrames": 5 }
+            ]
+          }
+        ]
+      },
+      "frameStrategy": {
+        "type": "everyNthFrame",
+        "nthFrame": 2,
+        "intervalMs": 500
+      },
+      "retentionPolicy": {
+        "snapshotRetentionDays": 3,
+        "videoRetentionDays": 7,
+        "maxStorageMb": 2048,
+        "autoDelete": 1,
+        "videoClipDurationSeconds": 60
+      },
+      "saveSnapshots": true,
+      "saveVideo": false,
+      "editable": {
+        "name": false,
+        "cameraType": false,
+        "cameraName": true,
+        "cameraUri": true,
+        "cameraUsername": true,
+        "cameraPassword": true,
+        "regions": false,
+        "model": false,
+        "targetClasses": false,
+        "frameStrategy": false,
+        "consecutiveFrames": true,
+        "confidenceThreshold": true,
+        "eventName": false,
+        "alertType": false,
+        "conditionLogic": false,
+        "inAppEnabled": false,
+        "webhookUrl": true,
+        "retention": false
+      }
+    },
+    {
+      "id": "person-intrusion-region",
+      "name": "Person Intrusion Region",
+      "description": "Triggers an alert when a person is detected inside the defined intrusion zone for 5 consecutive analysed frames.",
+      "version": 1,
+      "camera": {
+        "type": "rtsp",
+        "uri": "",
+        "name": "",
+        "username": "",
+        "password": ""
+      },
+      "modelId": "yolov8n-ncnn",
+      "targetClasses": ["person"],
+      "confidenceThreshold": 0.5,
+      "regions": [
+        {
+          "id": "intrusion-zone",
+          "name": "intrusion-zone",
+          "shape": "polygon",
+          "points": [
+            { "x": 0.3, "y": 0.5 },
+            { "x": 0.7, "y": 0.5 },
+            { "x": 0.95, "y": 0.9 },
+            { "x": 0.05, "y": 0.9 }
+          ]
+        }
+      ],
+      "alertPolicy": {
+        "eventName": "Person Intrusion Alert",
+        "alertType": "critical",
+        "inAppEnabled": 1,
+        "operation": "and",
+        "objectConditions": [
+          {
+            "className": "person",
+            "trigger": "present",
+            "regionOperation": "or",
+            "regionRules": [
+              { "regionName": "intrusion-zone", "consecutiveFrames": 5 }
+            ]
+          }
+        ]
+      },
+      "frameStrategy": {
+        "type": "everyNthFrame",
+        "nthFrame": 2,
+        "intervalMs": 500
+      },
+      "retentionPolicy": {
+        "snapshotRetentionDays": 3,
+        "videoRetentionDays": 7,
+        "maxStorageMb": 2048,
+        "autoDelete": 1,
+        "videoClipDurationSeconds": 60
+      },
+      "saveSnapshots": true,
+      "saveVideo": false,
+      "editable": {
+        "name": false,
+        "cameraType": false,
+        "cameraName": true,
+        "cameraUri": true,
+        "cameraUsername": true,
+        "cameraPassword": true,
+        "regions": false,
+        "model": false,
+        "targetClasses": false,
+        "frameStrategy": false,
+        "consecutiveFrames": true,
+        "confidenceThreshold": true,
+        "eventName": false,
+        "alertType": false,
+        "conditionLogic": false,
+        "inAppEnabled": false,
+        "webhookUrl": true,
+        "retention": false
+      }
+    }
+  ]
+}
