@@ -1,25 +1,45 @@
 {
+  "schemaVersion": 2,
   "templates": [
     {
       "id": "car-monitoring",
       "name": "Car Monitoring",
-      "description": "Triggers an alert when a car disappears for 5 consecutive analysed frames, or when a person approaches for 5 consecutive analysed frames.",
-      "version": 1,
+      "description": "Triggers an alert when a car disappears from the monitoring region for 5 consecutive analysed frames, or when a person enters it for 5 consecutive analysed frames.",
+      "version": 2,
       "camera": {
         "type": "rtsp",
         "uri": "",
         "name": "",
-        "username": "",
-        "password": ""
+        "username": null,
+        "password": null
       },
-      "modelId": "yolov8n-ncnn",
-      "targetClasses": ["car", "person"],
+      "modelId": "efficientdet-lite0-int8",
+      "targetClasses": [
+        "car",
+        "person"
+      ],
       "confidenceThreshold": 0.45,
-      "regions": [],
+      "regions": [
+        {
+          "id": "car-monitoring-zone",
+          "name": "car-monitoring-zone",
+          "shape": "boundingBox",
+          "points": [
+            {
+              "x": 0.15,
+              "y": 0.2
+            },
+            {
+              "x": 0.85,
+              "y": 0.85
+            }
+          ]
+        }
+      ],
       "alertPolicy": {
         "eventName": "Car Monitoring Alert",
         "alertType": "critical",
-        "inAppEnabled": 1,
+        "inAppEnabled": true,
         "operation": "or",
         "objectConditions": [
           {
@@ -27,7 +47,10 @@
             "trigger": "absent",
             "regionOperation": "or",
             "regionRules": [
-              { "regionName": "*", "consecutiveFrames": 5 }
+              {
+                "regionName": "car-monitoring-zone",
+                "consecutiveFrames": 5
+              }
             ]
           },
           {
@@ -35,7 +58,10 @@
             "trigger": "present",
             "regionOperation": "or",
             "regionRules": [
-              { "regionName": "*", "consecutiveFrames": 5 }
+              {
+                "regionName": "car-monitoring-zone",
+                "consecutiveFrames": 5
+              }
             ]
           }
         ]
@@ -49,19 +75,24 @@
         "snapshotRetentionDays": 3,
         "videoRetentionDays": 7,
         "maxStorageMb": 2048,
-        "autoDelete": 1,
-        "videoClipDurationSeconds": 60
+        "autoDelete": true
       },
       "saveSnapshots": true,
       "saveVideo": false,
       "editable": {
         "name": false,
-        "cameraType": false,
+        "cameraType": true,
         "cameraName": true,
         "cameraUri": true,
         "cameraUsername": true,
         "cameraPassword": true,
-        "regions": false,
+        "regions": true,
+        "regionPosition": true,
+        "regionResize": true,
+        "regionCreate": false,
+        "regionDelete": false,
+        "regionRename": false,
+        "regionShape": false,
         "model": false,
         "targetClasses": false,
         "frameStrategy": false,
@@ -71,24 +102,25 @@
         "alertType": false,
         "conditionLogic": false,
         "inAppEnabled": false,
-        "webhookUrl": true,
         "retention": false
       }
     },
     {
       "id": "person-intrusion-region",
       "name": "Person Intrusion Region",
-      "description": "Triggers an alert when a person is detected inside the defined intrusion zone for 5 consecutive analysed frames.",
-      "version": 1,
+      "description": "Triggers an alert when a person is detected inside the intrusion region for 5 consecutive analysed frames.",
+      "version": 2,
       "camera": {
         "type": "rtsp",
         "uri": "",
         "name": "",
-        "username": "",
-        "password": ""
+        "username": null,
+        "password": null
       },
-      "modelId": "yolov8n-ncnn",
-      "targetClasses": ["person"],
+      "modelId": "efficientdet-lite0-int8",
+      "targetClasses": [
+        "person"
+      ],
       "confidenceThreshold": 0.5,
       "regions": [
         {
@@ -96,17 +128,29 @@
           "name": "intrusion-zone",
           "shape": "polygon",
           "points": [
-            { "x": 0.3, "y": 0.5 },
-            { "x": 0.7, "y": 0.5 },
-            { "x": 0.95, "y": 0.9 },
-            { "x": 0.05, "y": 0.9 }
+            {
+              "x": 0.3,
+              "y": 0.5
+            },
+            {
+              "x": 0.7,
+              "y": 0.5
+            },
+            {
+              "x": 0.95,
+              "y": 0.9
+            },
+            {
+              "x": 0.05,
+              "y": 0.9
+            }
           ]
         }
       ],
       "alertPolicy": {
         "eventName": "Person Intrusion Alert",
         "alertType": "critical",
-        "inAppEnabled": 1,
+        "inAppEnabled": true,
         "operation": "and",
         "objectConditions": [
           {
@@ -114,7 +158,10 @@
             "trigger": "present",
             "regionOperation": "or",
             "regionRules": [
-              { "regionName": "intrusion-zone", "consecutiveFrames": 5 }
+              {
+                "regionName": "intrusion-zone",
+                "consecutiveFrames": 5
+              }
             ]
           }
         ]
@@ -128,19 +175,24 @@
         "snapshotRetentionDays": 3,
         "videoRetentionDays": 7,
         "maxStorageMb": 2048,
-        "autoDelete": 1,
-        "videoClipDurationSeconds": 60
+        "autoDelete": true
       },
       "saveSnapshots": true,
       "saveVideo": false,
       "editable": {
         "name": false,
-        "cameraType": false,
+        "cameraType": true,
         "cameraName": true,
         "cameraUri": true,
         "cameraUsername": true,
         "cameraPassword": true,
-        "regions": false,
+        "regions": true,
+        "regionPosition": true,
+        "regionResize": true,
+        "regionCreate": false,
+        "regionDelete": false,
+        "regionRename": false,
+        "regionShape": false,
         "model": false,
         "targetClasses": false,
         "frameStrategy": false,
@@ -150,7 +202,6 @@
         "alertType": false,
         "conditionLogic": false,
         "inAppEnabled": false,
-        "webhookUrl": true,
         "retention": false
       }
     }
