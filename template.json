@@ -4,7 +4,7 @@
     {
       "id": "car-monitoring",
       "name": "Car Monitoring",
-      "description": "Triggers an alert when a car disappears from the monitoring region for the configured number of consecutive analysed frames, or when a person enters it for the configured number of consecutive analysed frames.",
+      "description": "Monitors cars and people inside the configured monitoring region.",
       "version": 2,
       "camera": {
         "type": "rtsp",
@@ -81,13 +81,11 @@
       "saveVideo": false,
       "editable": {
         "name": false,
-
         "cameraType": true,
         "cameraName": true,
         "cameraUri": true,
         "cameraUsername": true,
         "cameraPassword": true,
-
         "regions": true,
         "regionSelect": true,
         "regionMove": true,
@@ -98,11 +96,9 @@
         "regionDelete": false,
         "regionRename": false,
         "regionShape": false,
-
         "model": false,
         "targetClasses": false,
         "frameStrategy": false,
-
         "consecutiveFrames": true,
         "confidenceThreshold": false,
         "eventName": false,
@@ -110,14 +106,13 @@
         "conditionLogic": false,
         "alertRegionRules": false,
         "inAppEnabled": false,
-
         "retention": false
       }
     },
     {
       "id": "person-intrusion-region",
       "name": "Person Intrusion Region",
-      "description": "Triggers an alert when a person is detected inside the intrusion region for the configured number of consecutive analysed frames.",
+      "description": "Monitors people entering the configured intrusion region.",
       "version": 2,
       "camera": {
         "type": "rtsp",
@@ -190,13 +185,11 @@
       "saveVideo": false,
       "editable": {
         "name": false,
-
         "cameraType": true,
         "cameraName": true,
         "cameraUri": true,
         "cameraUsername": true,
         "cameraPassword": true,
-
         "regions": true,
         "regionSelect": true,
         "regionMove": true,
@@ -207,11 +200,9 @@
         "regionDelete": false,
         "regionRename": false,
         "regionShape": false,
-
         "model": false,
         "targetClasses": false,
         "frameStrategy": false,
-
         "consecutiveFrames": true,
         "confidenceThreshold": false,
         "eventName": false,
@@ -219,7 +210,6 @@
         "conditionLogic": false,
         "alertRegionRules": false,
         "inAppEnabled": false,
-
         "retention": false
       }
     }
