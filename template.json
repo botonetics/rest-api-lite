@@ -4,7 +4,7 @@
     {
       "id": "car-monitoring",
       "name": "Car Monitoring",
-      "description": "Triggers an alert when a car disappears from the monitoring region for 5 consecutive analysed frames, or when a person enters it for 5 consecutive analysed frames.",
+      "description": "Triggers an alert when a car disappears from the monitoring region for the configured number of consecutive analysed frames, or when a person enters it for the configured number of consecutive analysed frames.",
       "version": 2,
       "camera": {
         "type": "rtsp",
@@ -81,34 +81,43 @@
       "saveVideo": false,
       "editable": {
         "name": false,
+
         "cameraType": true,
         "cameraName": true,
         "cameraUri": true,
         "cameraUsername": true,
         "cameraPassword": true,
+
         "regions": true,
-        "regionPosition": true,
-        "regionResize": true,
-        "regionCreate": false,
+        "regionSelect": true,
+        "regionMove": true,
+        "regionZoom": true,
+        "regionResize": false,
+        "regionCreateBoundingBox": false,
+        "regionCreatePolygon": false,
         "regionDelete": false,
         "regionRename": false,
         "regionShape": false,
+
         "model": false,
         "targetClasses": false,
         "frameStrategy": false,
+
         "consecutiveFrames": true,
-        "confidenceThreshold": true,
+        "confidenceThreshold": false,
         "eventName": false,
         "alertType": false,
         "conditionLogic": false,
+        "alertRegionRules": false,
         "inAppEnabled": false,
+
         "retention": false
       }
     },
     {
       "id": "person-intrusion-region",
       "name": "Person Intrusion Region",
-      "description": "Triggers an alert when a person is detected inside the intrusion region for 5 consecutive analysed frames.",
+      "description": "Triggers an alert when a person is detected inside the intrusion region for the configured number of consecutive analysed frames.",
       "version": 2,
       "camera": {
         "type": "rtsp",
@@ -181,27 +190,36 @@
       "saveVideo": false,
       "editable": {
         "name": false,
+
         "cameraType": true,
         "cameraName": true,
         "cameraUri": true,
         "cameraUsername": true,
         "cameraPassword": true,
+
         "regions": true,
-        "regionPosition": true,
-        "regionResize": true,
-        "regionCreate": false,
+        "regionSelect": true,
+        "regionMove": true,
+        "regionZoom": true,
+        "regionResize": false,
+        "regionCreateBoundingBox": false,
+        "regionCreatePolygon": false,
         "regionDelete": false,
         "regionRename": false,
         "regionShape": false,
+
         "model": false,
         "targetClasses": false,
         "frameStrategy": false,
+
         "consecutiveFrames": true,
-        "confidenceThreshold": true,
+        "confidenceThreshold": false,
         "eventName": false,
         "alertType": false,
         "conditionLogic": false,
+        "alertRegionRules": false,
         "inAppEnabled": false,
+
         "retention": false
       }
     }
