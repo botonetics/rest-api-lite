@@ -1,6 +1,6 @@
 {
-  "minimumBuild": 1,
-  "latestBuild": 1,
+  "minimumBuild": 2,
+  "latestBuild": 2,
   "updateUrl": "",
   "message": "A required update is available. Please upgrade to continue."
 }
